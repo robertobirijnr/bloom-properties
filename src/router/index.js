@@ -14,6 +14,11 @@ const routes = [
     path: '/details',
     name: 'Home Details',
     component: () => import(/* webpackChunkName: "about" */ '../components/PropertyDetail.vue')
+  },
+  {
+    path: '/add-listing',
+    name: 'Add Listings',
+    component: () => import( '../components/Add-Listing.vue')
   }
 ]
 

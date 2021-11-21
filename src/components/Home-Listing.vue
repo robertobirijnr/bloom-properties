@@ -13,95 +13,30 @@
       <div class="carousel-inner" role="listbox">
         <!--First slide-->
         <div class="carousel-item active">
-          <div class="col-md-4" style="float: left">
+
+          <div v-for="property in properties" :key="property._id" class="col-md-4" style="float: left">
             <div class="card mb-2">
               <img
                 class="card-img-top"
-                src="https://s1.rea.global/img/668x501-resize/realtor/gh/f95b9fa4f7ee85cd77d226c22d11623c.jpg"
+                :src="property.image"
                 alt="Card image cap"
               />
               <div class="card-body">
-                <h4 class="card-title">Card title</h4>
+                <h4 class="card-title">{{property.title}}</h4>
                 <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
+                  {{property.description}}
                 </p>
                 <a class="btn btn-primary">View Details</a>
               </div>
             </div>
           </div>
 
-          <div class="col-md-4" style="float: left">
-            <div class="card mb-2">
-              <img
-                class="card-img-top"
-                src="https://s1.rea.global/img/668x501-resize/realtor/gh/f95b9fa4f7ee85cd77d226c22d11623c.jpg"
-                alt="Card image cap"
-              />
-              <div class="card-body">
-                <h4 class="card-title">Card title</h4>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a class="btn btn-primary">View Details</a>
-              </div>
-            </div>
-          </div>
+          
 
-           <div class="col-md-4" style="float: left">
-            <div class="card mb-2">
-              <img
-                class="card-img-top"
-                src="https://s1.rea.global/img/668x501-resize/realtor/gh/f95b9fa4f7ee85cd77d226c22d11623c.jpg"
-                alt="Card image cap"
-              />
-              <div class="card-body">
-                <h4 class="card-title">Card title</h4>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a class="btn btn-primary">View Details</a>
-              </div>
-            </div>
-          </div>
+          
+           
 
-           <div class="col-md-4" style="float: left">
-            <div class="card mb-2">
-              <img
-                class="card-img-top"
-                src="https://s1.rea.global/img/668x501-resize/realtor/gh/f95b9fa4f7ee85cd77d226c22d11623c.jpg"
-                alt="Card image cap"
-              />
-              <div class="card-body">
-                <h4 class="card-title">Card title</h4>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a class="btn btn-primary">View Details</a>
-              </div>
-            </div>
-          </div>
-
-           <div class="col-md-4" style="float: left">
-            <div class="card mb-2">
-              <img
-                class="card-img-top"
-                src="https://s1.rea.global/img/668x501-resize/realtor/gh/f95b9fa4f7ee85cd77d226c22d11623c.jpg"
-                alt="Card image cap"
-              />
-              <div class="card-body">
-                <h4 class="card-title">Card title</h4>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a class="btn btn-primary">View Details</a>
-              </div>
-            </div>
-          </div>
+        
 
 
           
@@ -121,7 +56,20 @@
 </template>
 
 <script>
-export default {};
+import axios from 'axios';
+export default {
+    data() {
+        return {
+            properties: []
+        }
+    },
+    created(){
+        axios.get("https://home-listing-gh.herokuapp.com/api/houses")
+        .then(response=>{
+            this.properties = response.data
+        })
+    }
+};
 </script>
 
 <style  scoped>
