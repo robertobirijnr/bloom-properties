@@ -1,12 +1,20 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+   <navbar/>
+   <hero/>
     <router-view/>
   </div>
+
 </template>
+
+<script>
+import Hero from './components/Hero.vue'
+import Navbar from './components/Navbar.vue'
+export default {
+  components: { Navbar, Hero },
+  
+}
+</script>
 
 <style>
 #app {
