@@ -10,15 +10,16 @@ const routes = [
     name: 'Home',
     component: Home
   },
-  {
-    path: '/details',
-    name: 'Home Details',
-    component: () => import(/* webpackChunkName: "about" */ '../components/PropertyDetail.vue')
-  },
+  
   {
     path: '/add-listing',
     name: 'Add Listings',
     component: () => import( '../components/Add-Listing.vue')
+  },
+  {
+    path:"/view-details/:id",
+    name:"Property Details",
+    component:() =>import("../views/PropertyDetail.vue")
   }
 ]
 

@@ -1,20 +1,20 @@
 <template>
   <div class="container my-4">
-   Property for Sale in Ghana
+    Property for Sale in Ghana
 
     <hr class="mb-5" />
 
     <!--Carousel Wrapper-->
-    <div
-     
-    >
-    
-     
+    <div>
       <div class="carousel-inner" role="listbox">
         <!--First slide-->
         <div class="carousel-item active">
-
-          <div v-for="property in properties" :key="property._id" class="col-md-4" style="float: left">
+          <div
+            v-for="property in properties"
+            :key="property._id"
+            class="col-md-4"
+            style="float: left"
+          >
             <div class="card mb-2">
               <img
                 class="card-img-top"
@@ -22,31 +22,22 @@
                 alt="Card image cap"
               />
               <div class="card-body">
-                <h4 class="card-title">{{property.title}}</h4>
+                <h4 class="card-title">{{ property.title }}</h4>
                 <p class="card-text">
-                  {{property.description}}
+                  {{ property.description }}
                 </p>
-                <a class="btn btn-primary">View Details</a>
+                <div class="row">
+                  <div class="col-md-6"><router-link :to="`/view-details/${property._id}`" class="btn btn-primary">View Details</router-link></div>
+                  <div class="col-md-6"><button @click="deletePorperty(property._id)"  class="btn btn-danger">Delete</button></div>
+                </div>
               </div>
             </div>
           </div>
-
-          
-
-          
-           
-
-        
-
-
-          
-
-         
         </div>
         <!--/.First slide-->
 
         <!--Second slide-->
-        
+
         <!--/.Second slide-->
       </div>
       <!--/.Slides-->
@@ -56,26 +47,42 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
-    data() {
-        return {
-            properties: []
-        }
+  data() {
+    return {
+      properties: [],
+    };
+  },
+  created() {
+   this.getAllProperties()
+  },
+
+  methods:{
+
+    getAllProperties(){
+       axios
+      .get("https://home-listing-gh.herokuapp.com/api/houses")
+      .then((response) => {
+        this.properties = response.data;
+        console.log(response.data)
+      });
     },
-    created(){
-        axios.get("https://home-listing-gh.herokuapp.com/api/houses")
-        .then(response=>{
-            this.properties = response.data
-        })
+
+    deletePorperty(id){
+      axios.delete(`https://home-listing-gh.herokuapp.com/api/houses/${id}`)
+      .then(()=>{
+        this.getAllProperties()
+      })
+      
     }
+  }
 };
 </script>
 
-<style  scoped>
-
-.btn-primary{
-    background: #783d84 !important;
-    border: none;
+<style scoped>
+.btn-primary {
+  background: #783d84 !important;
+  border: none;
 }
 </style>
