@@ -10,7 +10,7 @@
         <!--First slide-->
         <div class="carousel-item active">
           <div
-            v-for="property in properties"
+            v-for="property in getallproperties"
             :key="property._id"
             class="col-md-4"
             style="float: left"
@@ -48,27 +48,20 @@
 
 <script>
 import axios from "axios";
+import {mapGetters} from 'vuex'
 export default {
-  data() {
-    return {
-      properties: [],
-    };
-  },
+ 
   created() {
-   this.getAllProperties()
+    this.$store.dispatch("getAllProperties")
+  },
+
+  computed:{
+    ...mapGetters(["getallproperties"])
   },
 
   methods:{
 
-    getAllProperties(){
-       axios
-      .get("https://home-listing-gh.herokuapp.com/api/houses")
-      .then((response) => {
-        this.properties = response.data;
-        console.log(response.data)
-      });
-    },
-
+   
     deletePorperty(id){
       axios.delete(`https://home-listing-gh.herokuapp.com/api/houses/${id}`)
       .then(()=>{
