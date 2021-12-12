@@ -28,7 +28,7 @@
                 </p>
                 <div class="row">
                   <div class="col-md-6"><router-link :to="`/view-details/${property._id}`" class="btn btn-primary">View Details</router-link></div>
-                  <div class="col-md-6"><button @click="deletePorperty(property._id)"  class="btn btn-danger">Delete</button></div>
+                  <div class="col-md-6"><button @click="deletePro.perty(property._id)"  class="btn btn-danger">Delete</button></div>
                 </div>
               </div>
             </div>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import {mapGetters} from 'vuex'
 export default {
  
@@ -60,14 +60,8 @@ export default {
   },
 
   methods:{
-
-   
-    deletePorperty(id){
-      axios.delete(`https://home-listing-gh.herokuapp.com/api/houses/${id}`)
-      .then(()=>{
-        this.getAllProperties()
-      })
-      
+    deleteProperty(id){ 
+			this.$store.dispatch("deleteProperty", id)  
     }
   }
 };

@@ -41,7 +41,22 @@ export default new Vuex.Store({
           reject(err)
         })
       })
-    }
+    },
+
+		// Delete property
+		deleteProperty({ commit }, id) {
+			return new Promise((resolve, reject) => {
+				axios.delete(`${baseUrl}/${id}`)
+					.then(response => {
+						commit("DELETE_PROPERTY", id)
+						resolve(response)
+					})
+					.catch(err => {
+						commit("SET_ERROR", err.response.data.error)
+						reject(err)
+					})
+			})
+		}
   },
   mutations: {
     SET_PROPERTIES(state,properties){
@@ -52,7 +67,12 @@ export default new Vuex.Store({
     },
     ADD_PROPERTY(state,property){
       state.properties.push(property)
-    }
+		},
+		DELETE_PROPERTY(state, id) {
+			const index = state.properties.indexOf(property => property.id == id)
+
+			state.properties.splice(index, 1)
+		}
   },
  
   getters:{
